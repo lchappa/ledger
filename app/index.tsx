@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView, Animated ,Button, Image, Dimensions} from 'react-native';
 import { logo1, logo2, logo3, logo4, logo5, logo6} from './logos';
+import { Link } from 'expo-router';
 
   const logos = [logo1, logo2, logo3, logo4, logo5, logo6]; // Ajoutez vos logos ici
   const logoWidth = 100; // Largeur d'un logo
@@ -42,11 +43,12 @@ const HomePage = () => {
     <View style={{ flex: 1 }}>
       {/* Disclaimer en haut */}
       <View style={{ backgroundColor: 'yellow', padding: 10 }}>
-        <Text>Disclaimer Text</Text>
+        <Text>Attention aux attaques par hameçonnage. Ledger ne vous demandera jamais les 24 mots de votre phrase de récupération. Ne les partagez jamais.</Text>
       </View>
 
       {/* Barre de navigation avec des boutons */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
+        <Link href="/signin">Sign In</Link>
         <Button title="Page 1" onPress={() => navigateToPage1()} />
         <Button title="Page 2" onPress={() => navigateToPage2()} />
         <Button title="Page 3" onPress={() => navigateToPage3()} />
@@ -55,7 +57,7 @@ const HomePage = () => {
 
       {/* Contenu central */}
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Texte au Centre</Text>
+            <Text style={{ fontWeight: 'bold', fontStyle: 'italic', fontSize: 40 }}>Ledger</Text>
       </View>
 
       {/* Barre défilante de logos */}
