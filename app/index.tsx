@@ -5,6 +5,7 @@ import { logo1, logo2, logo3, logo4, logo5, logo6} from './logos';
   const logos = [logo1, logo2, logo3, logo4, logo5, logo6]; // Ajoutez vos logos ici
   const logoWidth = 100; // Largeur d'un logo
   const spacing = 20; // Espacement entre les logos
+  const windowsWidth = Dimensions.get('window').width;
 
 const HomePage = () => {
   // Animation pour la barre défilante
@@ -30,8 +31,8 @@ const HomePage = () => {
     useEffect(() => {
         Animated.loop(
             Animated.timing(scrollX, {
-                toValue: -logos.length * (logoWidth + spacing),
-                duration: 5000 * logos.length,
+                toValue: -Dimensions.get('window').width + (logos.length),
+                duration: 3000 * logos.length,
                 useNativeDriver: false,
             })
         ).start();
