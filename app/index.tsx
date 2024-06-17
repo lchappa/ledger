@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ScrollView, Animated ,Button, Image, Dimensions} from 'react-native';
+import { View, Text, ScrollView, Animated ,Button, Image, Dimensions, FlatList} from 'react-native';
 import { logo1, logo2, logo3, logo4, logo5, logo6} from './logos';
 import { Link } from 'expo-router';
 
@@ -12,22 +12,11 @@ const HomePage = () => {
   // Animation pour la barre défilante
     const scrollX = new Animated.Value(Dimensions.get('window').width);
 
-
-
-  // Fonctions pour naviguer vers d'autres pages
-  const navigateToPage1 = () => {
-    // Navigation vers la page 1
-  }
-
-  const navigateToPage2 = () => {
-    // Navigation vers la page 2
-  }
-
-  const navigateToPage3 = () => {
-    // Navigation vers la page 3
-  }
-
-  // Tableau de logos à afficher
+    const commentaires = [
+      { id: 1, auteur: 'Utilisateur 1', contenu: 'Super application !' },
+      { id: 2, auteur: 'Utilisateur 2', contenu: 'J\'adore cette fonctionnalité !' },
+      { id: 3, auteur: 'Utilisateur 3', contenu: 'Très utile, merci !' },
+    ];
 
     useEffect(() => {
         Animated.loop(
@@ -60,6 +49,7 @@ const HomePage = () => {
             <Text style={{ fontWeight: 'bold', fontStyle: 'italic', fontSize: 40 }}>Ledger</Text>
       </View>
 
+
       {/* Barre défilante de logos */}
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
             {logos.map((logo, index) => (
@@ -78,7 +68,19 @@ const HomePage = () => {
                 </Animated.View>
             ))}
         </View>
-        
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <FlatList
+            horizontal
+            data={commentaires}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={{ padding: 10, margin: 5, backgroundColor: '#f0f0f0', borderRadius: 10 }}>
+                <Text style={{ fontWeight: 'bold' }}>{item.auteur}</Text>
+                <Text>{item.contenu}</Text>
+              </View>
+            )}
+          />
+        </View>
     </View>
   );
 }
