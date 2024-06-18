@@ -56,6 +56,7 @@ const HomePage = () => {
       {/* Barre de navigation avec des boutons */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', padding: 10 }}>
 
+        <Link href="/signin">Sign In</Link>
 
         <TouchableOpacity onPress={toggleDropdown} style={styles.navButton}>
           <Text style={styles.navButtonText}>Products</Text>
@@ -74,7 +75,7 @@ const HomePage = () => {
                   </View>
                 )}
         </TouchableOpacity>
-
+        
         <Button title="Page 1" onPress={() => { /* Navigation vers la page 1 */ }} />
         <Button title="Page 2" onPress={() => { /* Navigation vers la page 2 */ }} />
         <Button title="Page 3" onPress={() => { /* Navigation vers la page 3 */ }} />
