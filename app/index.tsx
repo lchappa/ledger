@@ -75,10 +75,10 @@ const HomePage = () => {
                   </View>
                 )}
         </TouchableOpacity>
-        
+
         <Button title="Page 1" onPress={() => { /* Navigation vers la page 1 */ }} />
         <Button title="Page 2" onPress={() => { /* Navigation vers la page 2 */ }} />
-        <Button title="Page 3" onPress={() => { /* Navigation vers la page 3 */ }} />
+        <Button title="assistance" onPress={() => { navigateToProduct('assistance') }} />
 
       </View>
 
