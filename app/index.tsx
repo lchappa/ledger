@@ -97,6 +97,7 @@ const HomePage = () => {
         </TouchableOpacity>
 
         <Link href="/signin" style={styles.navButtonText} >Sign In</Link>
+        <Link href="/signup" style={styles.navButtonText} >Sign Up</Link>
         <Link href="/userPage" style={styles.navButtonText}>User</Link>
 
 
