@@ -5,19 +5,19 @@ import { View, Text } from 'react-native';
 const UserPage = () => {
   const [balance, setBalance] = useState(0); // Utilisation de useState pour gérer l'état de Balance
 
-  useEffect(() => {
-   // const usersCollection = firestore().collection('Users');
-    //const userDoc = usersCollection.doc('Balance');
+  /*useEffect(() => {
+    const usersCollection = firestore().collection('Users');
+    const userDoc = usersCollection.doc('Balance');
 
-   /* const unsubscribe = userDoc.onSnapshot((doc) => {
+    const unsubscribe = userDoc.onSnapshot((doc) => {
       if (doc.exists) {
         const userBalance = doc.data().balance;
         setBalance(userBalance);
       }
-    });*/
+    });
 
     return () => unsubscribe();
-  }, []);
+  }, []);*/
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
