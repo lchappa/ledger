@@ -54,28 +54,6 @@ const HomePage = () => {
   // Animation pour la barre défilante
     const scrollX = new Animated.Value(Dimensions.get('window').width);
 
-    useEffect(() => {
-        Animated.loop(
-            Animated.timing(scrollX, {
-                toValue: -Dimensions.get('window').width + (logos.length),
-                duration: 3000 * logos.length,
-                useNativeDriver: false,
-            })
-        ).start();
-    }, []);
-  const navigation = useNavigation();
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-
-
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
-
-  const navigateToProduct = (productName) => {
-    setDropdownVisible(false);
-    navigation.navigate(productName);
-  };
-
   useEffect(() => {
     Animated.loop(
       Animated.timing(scrollX, {
@@ -86,108 +64,151 @@ const HomePage = () => {
     ).start();
   }, []);
 
+  const navigation = useNavigation();
+  const [productDropdownVisible, setProductDropdownVisible] = useState(false);
+  const [appServicesDropdownVisible, setAppServicesDropdownVisible] = useState(false);
+
+  const toggleProductDropdown = () => {
+    setProductDropdownVisible(!productDropdownVisible);
+    setAppServicesDropdownVisible(false); // Close the other dropdown
+  };
+
+  const toggleAppServicesDropdown = () => {
+    setAppServicesDropdownVisible(!appServicesDropdownVisible);
+    setProductDropdownVisible(false); // Close the other dropdown
+  };
+
+  const navigateToProduct = (productName) => {
+    // setDropdownVisible(false); // Assuming this was a typo and should be setProductDropdownVisible(false)
+    setProductDropdownVisible(false);
+    navigation.navigate(productName);
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <View style={{ backgroundColor: 'yellow', padding: 10 }}>
         <Text>Attention aux attaques par hameçonnage. Ledger ne vous demandera jamais les 24 mots de votre phrase de récupération. Ne les partagez jamais. :)</Text>
       </View>
 
       {/* Barre de navigation avec des boutons */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', padding: 10 }}>
-
-        <Link href="/signin">Sign In</Link>
-        <Link href="/userPage">User</Link>
-
-
-        <TouchableOpacity onPress={toggleDropdown} style={styles.navButton}>
-          <Text style={styles.navButtonText}>Products</Text>
-                {/* Dropdown */}
-                {dropdownVisible && (
-                  <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding: 1 }}>
-                    <TouchableOpacity onPress={() => navigateToProduct('products')} style={styles.dropdownItem}>
-                      <Text style={styles.dropdownItemText}>Product 1</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigateToProduct('product2')} style={styles.dropdownItem}>
-                      <Text style={styles.dropdownItemText}>Product 2</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigateToProduct('product3')} style={styles.dropdownItem}>
-                      <Text style={styles.dropdownItemText}>Product 3</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
+        <TouchableOpacity onPress={() => navigateToProduct('index')} style={styles.navButton}>
+          <Text style={styles.navButtonText}>[ LEDGER ]</Text>
         </TouchableOpacity>
 
-        <Button title="Page 1" onPress={() => { /* Navigation vers la page 1 */ }} />
-        <Button title="Page 2" onPress={() => { /* Navigation vers la page 2 */ }} />
-        <Button title="assistance" onPress={() => { navigateToProduct('assistance') }} />
+        <Link href="/signin" style={styles.navButtonText} >Sign In</Link>
+        <Link href="/userPage" style={styles.navButtonText}>User</Link>
 
+
+
+        <View style={{ position: 'relative' }}>
+          <TouchableOpacity onPress={toggleProductDropdown} style={styles.navButton}>
+            <Text style={styles.navButtonText}>Produits</Text>
+            {/* Dropdown */}
+            {productDropdownVisible && (
+              <View style={styles.dropdownContainer}>
+                <TouchableOpacity onPress={() => navigateToProduct('LedgerStax')} style={styles.dropdownItem}>
+                  <Text style={styles.dropdownItemText}>Ledger Stax</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToProduct('LedgerNanoX')} style={styles.dropdownItem}>
+                  <Text style={styles.dropdownItemText}>Ledger Nano X</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToProduct('LedgerNanoSPlus')} style={styles.dropdownItem}>
+                  <Text style={styles.dropdownItemText}>Ledger Nano S Plus</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ position: 'relative' }}>
+          <TouchableOpacity onPress={toggleAppServicesDropdown} style={styles.navButton}>
+            <Text style={styles.navButtonText}>Applications & Services</Text>
+            {/* Dropdown */}
+            {appServicesDropdownVisible && (
+              <View style={styles.dropdownContainer}>
+                <TouchableOpacity onPress={() => navigateToProduct('LedgerLive')} style={styles.dropdownItem}>
+                  <Text style={styles.dropdownItemText}>Ledger Live</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToProduct('CryptoPrices')} style={styles.dropdownItem}>
+                  <Text style={styles.dropdownItemText}>Prix des Cryptos</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+
+
+        <TouchableOpacity onPress={() => navigateToProduct('assistance')} style={styles.navButton}>
+          <Text style={styles.navButtonText}>Assistance</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Contenu central */}
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontWeight: 'bold', fontStyle: 'italic', fontSize: 40 }}>Ledger</Text>
+        <Text style={{ fontWeight: 'bold', fontStyle: 'italic', fontSize: 40, color: 'white' }}></Text>
       </View>
 
-
       {/* Barre défilante de logos */}
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-            {logos.map((logo, index) => (
-                <Animated.View
-                    key={index}
-                    style={{
-                        transform: [{ translateX: scrollX }],
-                        position: 'absolute',
-                        right: index * (logoWidth + spacing),
-                    }}
-                >
-                    <Image
-                        source={logo}
-                        style={{ width: logoWidth, height: 100 }}
-                    />
-                </Animated.View>
-            ))}
-        </View>
-     <View style={{ flex: 1 }}>
-           <CommentairesSection />
-         </View>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+        {logos.map((logo, index) => (
+          <Animated.View
+            key={index}
+            style={{
+              transform: [{ translateX: scrollX }],
+              position: 'absolute',
+              right: index * (logoWidth + spacing),
+            }}
+          >
+            <Image
+              source={logo}
+              style={{ width: logoWidth, height: 100 }}
+            />
+          </Animated.View>
+        ))}
+      </View>
+
+      {/* Section de commentaires */}
+      <View style={{ flex: 1 }}>
+        <CommentairesSection />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   navButton: {
+    position: 'relative',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#007BFF',
+    backgroundColor: 'black',
     borderRadius: 5,
-    width: 120,
+    width: 190,
   },
   navButtonText: {
     color: 'white',
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: 'left',
   },
-dropdown: {
-  position: 'absolute',
-  top: '11%', // Ajustement pour centrer verticalement
-  left: '13.7%', // Ajustement pour déplacer vers la droite
-  transform: 'translateX(-50%)', // Pour centrer horizontalement
-  backgroundColor: 'white',
-  zIndex: 1000,
-  margin: 5,
-  width: '100px',
-  alignItems: 'center',
-},
-  dropdownItem: {
-    paddingVertical: 2,
+  dropdownContainer: {
+    position: 'absolute',
+    top: '100%', // Positionner en dessous du bouton
+    left: 0,
+    backgroundColor: 'black',
+    zIndex: 1000,
+    paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#007BFF',
+  },
+  dropdownItem: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    backgroundColor: 'black',
     width: '100%',
   },
   dropdownItemText: {
     color: 'white',
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: 'left',
   },
 });
 
