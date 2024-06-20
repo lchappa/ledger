@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Animated , Image, Dimensions, FlatList, TouchableOpacity, Button, StyleSheet} from 'react-native';
+import { View, Text, ScrollView, Animated , Image, Dimensions, FlatList, TouchableOpacity, Button, StyleSheet, Platform } from 'react-native';
 import { logo1, logo2, logo3, logo4, logo5, logo6} from './logos';
 import { Link } from 'expo-router';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'react-native-permissions'; // Import react-native-permissions
 import CommentairesSection from './CommentairesComponent';
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,6 +14,43 @@ const spacing = 20;
 const windowWidth = Dimensions.get('window').width;
 
 const HomePage = () => {
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+
+  const registerForPushNotificationsAsync = async () => {
+    const { status } = await Permissions.request(Permissions.NOTIFICATIONS); // Request notification permission
+
+    if (status !== 'granted') {
+      alert('Permission to receive notifications was denied');
+      return;
+    }
+
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+
+    // Get the token that identifies this device
+    let token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  };
+
+
+
+
+
+
+
+
+
+
+
   // Animation pour la barre défilante
     const scrollX = new Animated.Value(Dimensions.get('window').width);
 
@@ -57,6 +96,8 @@ const HomePage = () => {
       <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', padding: 10 }}>
 
         <Link href="/signin">Sign In</Link>
+        <Link href="/userPage">User</Link>
+
 
         <TouchableOpacity onPress={toggleDropdown} style={styles.navButton}>
           <Text style={styles.navButtonText}>Products</Text>
