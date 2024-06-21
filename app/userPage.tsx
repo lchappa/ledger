@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
+import TransactionComponent from '../components/TransactionComponent';
 //import firestore from '@react-native-firebase/firestore';
 
 const UserPage = () => {
@@ -25,6 +26,8 @@ const UserPage = () => {
       <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20 }}>
         Balance: {balance}
       </Text>
+     <TransactionComponent />
+
     </View>
   );
 };

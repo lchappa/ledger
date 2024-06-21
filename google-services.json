@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "575638652347",
+    "project_id": "react-native-83857",
+    "storage_bucket": "react-native-83857.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575638652347:android:ad6a19bbfd37479c3d309e",
+        "android_client_info": {
+          "package_name": "com.anonymous.ledger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwySfLuOMdzJF-4yzoXknSLftR49DD1S8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

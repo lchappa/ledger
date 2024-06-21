@@ -57,7 +57,7 @@ const HomePage = () => {
   useEffect(() => {
     Animated.loop(
       Animated.timing(scrollX, {
-        toValue: -windowWidth + logos.length * (logoWidth + spacing),
+        toValue: -windowWidth + (logos.length * (logoWidth + spacing) )* -1,
         duration: 3000 * logos.length,
         useNativeDriver: false,
       })
@@ -97,8 +97,6 @@ const HomePage = () => {
         </TouchableOpacity>
 
         <Link href="/signin" style={styles.navButtonText} >Sign In</Link>
-        <Link href="/signup" style={styles.navButtonText} >Sign Up</Link>
-        <Link href="/userPage" style={styles.navButtonText}>User</Link>
 
 
 
@@ -171,6 +169,9 @@ const HomePage = () => {
 
       {/* Section de commentaires */}
       <View style={{ flex: 1 }}>
+              <Link href="/userPage" style={styles.navButtonText}>User</Link>
+        <Link href="/signup" style={styles.navButtonText} >Sign Up</Link>
+
         <CommentairesSection />
       </View>
     </View>
