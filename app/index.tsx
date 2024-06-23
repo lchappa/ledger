@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Animated , Image, Dimensions, FlatList, TouchableOpacity, Button, StyleSheet, Platform } from 'react-native';
-import { logo1, logo2, logo3, logo4, logo5, logo6} from './logos';
 import { Link } from 'expo-router';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'react-native-permissions'; // Import react-native-permissions
 import CommentairesSection from './CommentairesComponent';
 import { useNavigation } from '@react-navigation/native';
-
-
-const logos = [logo1, logo2, logo3, logo4, logo5, logo6];
-const logoWidth = 100;
-const spacing = 20;
 const windowWidth = Dimensions.get('window').width;
 
 const HomePage = () => {
@@ -41,42 +35,10 @@ const HomePage = () => {
     console.log(token);
   };
 
-
-
-
-
-
-
-
-
-
-
-  // Animation pour la barre défilante
-    const scrollX = new Animated.Value(Dimensions.get('window').width);
-
-  useEffect(() => {
-    Animated.loop(
-      Animated.timing(scrollX, {
-        toValue: -windowWidth + (logos.length * (logoWidth + spacing) )* -1,
-        duration: 3000 * logos.length,
-        useNativeDriver: false,
-      })
-    ).start();
-  }, []);
-
   const navigation = useNavigation();
   const [productDropdownVisible, setProductDropdownVisible] = useState(false);
-  const [appServicesDropdownVisible, setAppServicesDropdownVisible] = useState(false);
 
-  const toggleProductDropdown = () => {
-    setProductDropdownVisible(!productDropdownVisible);
-    setAppServicesDropdownVisible(false); // Close the other dropdown
-  };
 
-  const toggleAppServicesDropdown = () => {
-    setAppServicesDropdownVisible(!appServicesDropdownVisible);
-    setProductDropdownVisible(false); // Close the other dropdown
-  };
 
   const navigateToProduct = (productName) => {
     // setDropdownVisible(false); // Assuming this was a typo and should be setProductDropdownVisible(false)
@@ -95,48 +57,15 @@ const HomePage = () => {
         <TouchableOpacity onPress={() => navigateToProduct('index')} style={styles.navButton}>
           <Text style={styles.navButtonText}>[ LEDGER ]</Text>
         </TouchableOpacity>
-
-        <Link href="/signin" style={styles.navButtonText} >Sign In</Link>
-
-
-
-        <View style={{ position: 'relative' }}>
-          <TouchableOpacity onPress={toggleProductDropdown} style={styles.navButton}>
-            <Text style={styles.navButtonText}>Produits</Text>
-            {/* Dropdown */}
-            {productDropdownVisible && (
-              <View style={styles.dropdownContainer}>
-                <TouchableOpacity onPress={() => navigateToProduct('LedgerStax')} style={styles.dropdownItem}>
-                  <Text style={styles.dropdownItemText}>Ledger Stax</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToProduct('LedgerNanoX')} style={styles.dropdownItem}>
-                  <Text style={styles.dropdownItemText}>Ledger Nano X</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToProduct('LedgerNanoSPlus')} style={styles.dropdownItem}>
-                  <Text style={styles.dropdownItemText}>Ledger Nano S Plus</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </TouchableOpacity>
-        </View>
-
-        <View style={{ position: 'relative' }}>
-          <TouchableOpacity onPress={toggleAppServicesDropdown} style={styles.navButton}>
-            <Text style={styles.navButtonText}>Applications & Services</Text>
-            {/* Dropdown */}
-            {appServicesDropdownVisible && (
-              <View style={styles.dropdownContainer}>
-                <TouchableOpacity onPress={() => navigateToProduct('LedgerLive')} style={styles.dropdownItem}>
-                  <Text style={styles.dropdownItemText}>Ledger Live</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToProduct('CryptoPrices')} style={styles.dropdownItem}>
-                  <Text style={styles.dropdownItemText}>Prix des Cryptos</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </TouchableOpacity>
-        </View>
-
+        <TouchableOpacity onPress={() => navigateToProduct('signin')} style={styles.navButton}>
+            <Text style={styles.navButtonText}>SignIn</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigateToProduct('userPage')} style={styles.navButton}>
+          <Text style={styles.navButtonText}>UserPage</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigateToProduct('signup2')} style={styles.navButton}>
+          <Text style={styles.navButtonText}>SignUp</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigateToProduct('assistance')} style={styles.navButton}>
           <Text style={styles.navButtonText}>Assistance</Text>
@@ -148,29 +77,11 @@ const HomePage = () => {
         <Text style={{ fontWeight: 'bold', fontStyle: 'italic', fontSize: 40, color: 'white' }}></Text>
       </View>
 
-      {/* Barre défilante de logos */}
-      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-        {logos.map((logo, index) => (
-          <Animated.View
-            key={index}
-            style={{
-              transform: [{ translateX: scrollX }],
-              position: 'absolute',
-              right: index * (logoWidth + spacing),
-            }}
-          >
-            <Image
-              source={logo}
-              style={{ width: logoWidth, height: 100 }}
-            />
-          </Animated.View>
-        ))}
-      </View>
+
 
       {/* Section de commentaires */}
       <View style={{ flex: 1 }}>
-              <Link href="/userPage" style={styles.navButtonText}>User</Link>
-        <Link href="/signup" style={styles.navButtonText} >Sign Up</Link>
+
 
         <CommentairesSection />
       </View>
