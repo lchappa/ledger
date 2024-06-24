@@ -57,7 +57,7 @@ const HomePage = () => {
         <TouchableOpacity onPress={() => navigateToProduct('index')} style={styles.navButton}>
           <Text style={styles.navButtonText}>[ LEDGER ]</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigateToProduct('signin')} style={styles.navButton}>
+        <TouchableOpacity onPress={() => navigateToProduct('signin2')} style={styles.navButton}>
             <Text style={styles.navButtonText}>SignIn</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateToProduct('userPage')} style={styles.navButton}>

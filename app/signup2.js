@@ -63,7 +63,7 @@ export default function LoginForm() {
             )}
           </Pressable>
         </View>
-        <Link href="/signin" style={styles.footerText}>
+        <Link href="/signin2" style={styles.footerText}>
           Already Have An Account?
           <Text style={styles.signin}>  Sign In</Text>
         </Link>

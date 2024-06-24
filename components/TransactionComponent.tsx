@@ -4,6 +4,7 @@ import { updateBalance } from './firebaseFunctions2'; // Assurez-vous d'importer
 
 const TransactionComponent = ({ userId }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [showCloseButton, setShowCloseButton] = useState(false); // Nouveau state pour gérer la visibilité du bouton de fermeture
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('');
   const [selectedAction, setSelectedAction] = useState('');
@@ -12,16 +13,22 @@ const TransactionComponent = ({ userId }) => {
   const handleDeposit = () => {
     setSelectedAction('add');
     setModalVisible(true);
+    setShowCloseButton(true); // Afficher le bouton de fermeture
+
   };
 
   const handleTransfer = () => {
     setSelectedAction('transfer');
     setModalVisible(true);
+        setShowCloseButton(true); // Afficher le bouton de fermeture
+
   };
 
   const handleWithdraw = () => {
     setSelectedAction('withdraw');
     setModalVisible(true);
+        setShowCloseButton(true); // Afficher le bouton de fermeture
+
   };
 
   const handleSubmit = async (action) => {
@@ -36,7 +43,15 @@ const TransactionComponent = ({ userId }) => {
       setCurrency('');
       setRecipient('');
     }
+    };
+ const handleCloseModal = () => {
+    setModalVisible(false);
+    setShowCloseButton(false); // Cacher le bouton de fermeture
+    setAmount('');
+    setCurrency('');
+    setRecipient('');
   };
+
 
   return (
     <View>
@@ -69,6 +84,9 @@ const TransactionComponent = ({ userId }) => {
             title="Valider"
             onPress={() => handleSubmit(selectedAction)}
           />
+          {showCloseButton && ( // Afficher le bouton de fermeture conditionnellement
+                      <Button title="Fermer" onPress={handleCloseModal} />
+                    )}
         </View>
       </Modal>
     </View>
