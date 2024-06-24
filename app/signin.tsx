@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Switch, Text, TextInput, View } from 'react-native'
 import {LinearGradient} from "expo-linear-gradient";
-import {Link} from "expo-router";
+import {Link, router} from "expo-router";
+import auth from "../android/app/src/firebase";
+import AsyncStorage from "../android/app/src/firebase";
 
 export default function LoginForm() {
     const [click,setClick] = useState(false);
@@ -10,15 +12,15 @@ export default function LoginForm() {
     return (
         <LinearGradient
             style={styles.mainContainer}
-            colors={['rgba(110,48,143,1)', 'rgba(0,0,0,1)']}
+            colors={['rgba(136,100,156,1)', 'rgba(0,0,0,1)']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}>
         <View style={styles.container}>
             <Text style={styles.title}>Login</Text>
             <View style={styles.inputView}>
-                <TextInput style={styles.input} placeholder='EMAIL' value={email} onChangeText={setEmail} autoCorrect={false}
+                <TextInput style={styles.input} placeholder='Email' value={email} onChangeText={setEmail} autoCorrect={false}
                            autoCapitalize='none' />
-                <TextInput style={styles.input} placeholder='PASSWORD' secureTextEntry value={password} onChangeText={setPassword} autoCorrect={false}
+                <TextInput style={styles.input} placeholder='Mot de passe' secureTextEntry value={password} onChangeText={setPassword} autoCorrect={false}
                            autoCapitalize='none'/>
             </View>
             <View style={styles.rememberView}>
@@ -34,16 +36,24 @@ export default function LoginForm() {
             </View>
 
             <View style={styles.buttonView}>
-                <Pressable style={styles.button} onPress={() => LoginController}>
+                <Pressable style={styles.button} onPress={() => LoginController(email, password, click)}>
                     <Text style={styles.buttonText}>LOGIN</Text>
                 </Pressable>
             </View>
-            <Link href={"/signup"} style={styles.footerText}>Don't have an account ?<Text style={styles.signup}>  Sign Up</Text></Link>
+            <Link href={"/signup2"} style={styles.footerText}>Don't have an account ?<Text style={styles.signup}>  Sign Up</Text></Link>
         </View>
         </LinearGradient>
     )
 }
 
+function LoginController(email: string, password: string, click: boolean) {
+    auth().signInWithEmailAndPassword(email, password).then(() => {
+        if(click){
+            AsyncStorage.setItem('uid', auth().currentUser?.uid as string).then();
+        }
+        router.push("/"+auth().currentUser?.uid as string+"/");
+    })
+}
 
 const styles = StyleSheet.create({
     mainContainer: {
