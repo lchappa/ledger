@@ -14,7 +14,7 @@ const HomePage = () => {
   }, []);
 
   const registerForPushNotificationsAsync = async () => {
-    const { status } = await Permissions.request(Permissions.NOTIFICATIONS); // Request notification permission
+    const {status} = await Permissions.request(Permissions.NOTIFICATIONS); // Request notification permission
 
     if (status !== 'granted') {
       alert('Permission to receive notifications was denied');
@@ -57,13 +57,13 @@ const HomePage = () => {
           <TouchableOpacity onPress={() => navigateToProduct('index')} style={styles.navButton}>
             <Text style={styles.navButtonText}>[ LEDGER ]</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigateToProduct('signin')} style={styles.navButton}>
+          <TouchableOpacity onPress={() => navigateToProduct('/accueil/signin')} style={styles.navButton}>
             <Text style={styles.navButtonText}>SignIn</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigateToProduct('userPage')} style={styles.navButton}>
+          <TouchableOpacity onPress={() => navigateToProduct('/accueil/index')} style={styles.navButton}>
             <Text style={styles.navButtonText}>UserPage</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigateToProduct('signup2')} style={styles.navButton}>
+          <TouchableOpacity onPress={() => navigateToProduct('/accueil/signup')} style={styles.navButton}>
             <Text style={styles.navButtonText}>SignUp</Text>
           </TouchableOpacity>
 
